@@ -15,8 +15,8 @@ public class ProductDao {
     private Statement statement;
 
     int id;
-    public int addNewProduct(Product product) {
-
+    public int addNewProduct(String productName) {
+        Product product = new Product();
         try{
             connection = DatabaseConnection.createConnection();
 
@@ -79,14 +79,14 @@ public class ProductDao {
         String sql = "DELETE FROM product WHERE product_id=?";
 
         try {
-            Shop shop = new Shop();
+            Product product = new Product();
             ResultSet resultSet = null;
             preparedStatement = connection.prepareStatement(sql);
-            shop.getId(resultSet.getInt("product_id"));
+            product.setProductId(resultSet.getInt("product_id"));
 
             int rowsDeleted = preparedStatement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("A user was deleted successfully!");
+                System.out.println("A product was deleted successfully!");
             }
         } catch (Exception e){
             e.printStackTrace();
