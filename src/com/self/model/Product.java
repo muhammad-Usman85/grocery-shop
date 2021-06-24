@@ -2,8 +2,8 @@ package com.self.model;
 
 public class Product {
 
-    private int productId;
-    private String productName;
+    private int productId; // product_id
+    private String productName; // product_name
 
     public Product() {
     }

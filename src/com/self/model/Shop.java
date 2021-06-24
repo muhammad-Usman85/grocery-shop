@@ -2,10 +2,10 @@ package com.self.model;
 
 public class Shop {
 
-    private int id;
-    private String shopName;
-    private String shopAddress;
-    private int productId;
+    private int id; // id
+    private String shopName; // shop_name
+    private String shopAddress; // shop_address
+    private int productId; // product_id
 
     public int getId(int id) {
         return this.id;

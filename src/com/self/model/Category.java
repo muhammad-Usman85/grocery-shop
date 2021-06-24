@@ -2,8 +2,8 @@ package com.self.model;
 
 public class Category {
 
-    private int id;
-    private String categoryName;
+    private int id; // id
+    private String categoryName; // category_name
 
     public int getId() {
         return id;
