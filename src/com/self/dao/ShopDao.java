@@ -20,7 +20,7 @@ public class ShopDao {
             connection = DatabaseConnection.createConnection();
 
             String query = "INSERT INTO shop(shop_name, shop_address)"
-                    + "VALUES(?, ?)";
+                    + "VALUES(?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(query , preparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, shop.getShopName());

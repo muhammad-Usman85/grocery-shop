@@ -14,9 +14,9 @@ public class ProductDao {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    int id;
-    public int addNewProduct(String productName) {
-        Product product = new Product();
+
+    public int addNewProduct(Product productName) {
+        int id = 0;
         try{
             connection = DatabaseConnection.createConnection();
 
@@ -24,7 +24,7 @@ public class ProductDao {
                     + "VALUES(?)";
 
             preparedStatement = connection.prepareStatement(query , preparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, product.getProductName());
+            preparedStatement.setString(1, productName.getProductName());
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -73,21 +73,21 @@ public class ProductDao {
         return list;
     }
 
-    public void deleteProduct(int id){
-
-        connection = DatabaseConnection.createConnection();
-        String sql = "DELETE FROM product WHERE product_id=?";
+    public void deleteProduct(int id) throws SQLException {
 
         try {
-            Product product = new Product();
-            ResultSet resultSet = null;
+            connection = DatabaseConnection.createConnection();
+            String sql = "DELETE FROM product WHERE product_id=?";
+
             preparedStatement = connection.prepareStatement(sql);
-            product.setProductId(resultSet.getInt("product_id"));
+
+            preparedStatement.setInt(1, id);
 
             int rowsDeleted = preparedStatement.executeUpdate();
             if (rowsDeleted > 0) {
                 System.out.println("A product was deleted successfully!");
             }
+            System.out.println("record not found!");
         } catch (Exception e){
             e.printStackTrace();
         }
