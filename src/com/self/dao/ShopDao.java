@@ -77,14 +77,13 @@ public class ShopDao {
 
     public void deleteShop(int id){
 
-        connection = DatabaseConnection.createConnection();
-        String sql = "DELETE FROM shop WHERE id=?";
-
         try {
-            Shop shop = new Shop();
-            ResultSet resultSet = null;
+            connection = DatabaseConnection.createConnection();
+            String sql = "DELETE FROM shop WHERE id=?";
+
             preparedStatement = connection.prepareStatement(sql);
-            shop.getId(resultSet.getInt("id"));
+
+            preparedStatement.setInt(1, id);
 
             int rowsDeleted = preparedStatement.executeUpdate();
             if (rowsDeleted > 0) {

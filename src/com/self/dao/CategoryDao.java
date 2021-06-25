@@ -15,21 +15,21 @@ public class CategoryDao {
     private PreparedStatement preparedStatement;
     private Statement statement;
 
-    int id;
-    public int addNewCategory(Category category) {
 
-        try{
+    public int addNewCategory(Category category) {
+        int id = 0;
+        try {
             connection = DatabaseConnection.createConnection();
 
             String query = "INSERT INTO category(category_name)"
                     + "VALUES(?)";
 
-            preparedStatement = connection.prepareStatement(query , preparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(query, preparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, category.getCategoryName());
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 id = resultSet.getInt(1);
                 System.out.println("this is product id : " + id);
                 return id;
@@ -37,8 +37,7 @@ public class CategoryDao {
             resultSet.close();
             connection.close();
             return id;
-
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return 0;
         }
@@ -62,9 +61,7 @@ public class CategoryDao {
                 category.setId(resultSet.getInt("category_id"));
                 category.setCategoryName(resultSet.getString("category_name"));
 
-                //add each shop to the list
                 list.add(category);
-
             }
         } finally {
             resultSet.close();
@@ -74,22 +71,19 @@ public class CategoryDao {
         return list;
     }
 
-    public void deleteProduct(int id){
-
-        connection = DatabaseConnection.createConnection();
-        String sql = "DELETE FROM category WHERE category_id=?";
+    public void deleteProduct(int id) {
 
         try {
-            Shop shop = new Shop();
-            ResultSet resultSet = null;
+            connection = DatabaseConnection.createConnection();
+            String sql = "DELETE FROM category WHERE category_id=?";
             preparedStatement = connection.prepareStatement(sql);
-            shop.getId(resultSet.getInt("category_id"));
+            preparedStatement.setInt(1, id);
 
             int rowsDeleted = preparedStatement.executeUpdate();
             if (rowsDeleted > 0) {
                 System.out.println("A user was deleted successfully!");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
